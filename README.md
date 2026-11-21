@@ -2,7 +2,7 @@
 
 A Windows desktop automation tool for Wiseman English Builder. It combines Chrome automation, local Ollama models, visual passage reading, persistent progress memory, and a CustomTkinter control panel.
 
-> This README describes the supplied current build, `run_ultrafast.py`, and compares it with `first version.py`.
+
 
 ## Main features
 
