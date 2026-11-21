@@ -1,0 +1,7 @@
+customtkinter
+playwright
+youtube-transcript-api
+pillow
+psutil
+patchright
+pyinstaller

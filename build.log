@@ -1,0 +1,523 @@
+Wiseman Autopilot build started Sat 11/21/2026 21:16:01.69
+C:\Program Files\nodejs\npm
+C:\Program Files\nodejs\npm.cmd
+C:\Users\manso\.cargo\bin\rustc.exe
+C:\Users\manso\.cargo\bin\cargo.exe
+C:\Users\manso\AppData\Local\Programs\Python\Python315\python.exe
+C:\Users\manso\AppData\Local\Microsoft\WindowsApps\python.exe
+Requirement already satisfied: pip in .\.venv\Lib\site-packages (26.2.2)
+Collecting pip
+  Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Using cached pip-26.3-py3-none-any.whl (2.0 MB)
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 26.2.2
+    Uninstalling pip-26.2.2:
+      Successfully uninstalled pip-26.2.2
+Successfully installed pip-26.3
+Collecting customtkinter (from -r backend\requirements.txt (line 1))
+  Using cached customtkinter-6.0.0-py3-none-any.whl.metadata (698 bytes)
+Collecting playwright (from -r backend\requirements.txt (line 2))
+  Using cached playwright-1.65.2-py3-none-win_amd64.whl.metadata (3.3 kB)
+Collecting youtube-transcript-api (from -r backend\requirements.txt (line 3))
+  Using cached youtube_transcript_api-1.2.5-py3-none-any.whl.metadata (25 kB)
+Collecting pillow (from -r backend\requirements.txt (line 4))
+  Using cached pillow-13.0.0-cp315-cp315-win_amd64.whl.metadata (9.3 kB)
+Collecting psutil (from -r backend\requirements.txt (line 5))
+  Using cached psutil-7.2.2-cp37-abi3-win_amd64.whl.metadata (22 kB)
+Collecting patchright (from -r backend\requirements.txt (line 6))
+  Using cached patchright-1.64.4-py3-none-win_amd64.whl.metadata (15 kB)
+Collecting pyinstaller (from -r backend\requirements.txt (line 7))
+  Using cached pyinstaller-6.22.3-py3-none-win_amd64.whl.metadata (8.5 kB)
+Collecting darkdetect (from customtkinter->-r backend\requirements.txt (line 1))
+  Using cached darkdetect-0.8.0-py3-none-any.whl.metadata (3.6 kB)
+Collecting packaging (from customtkinter->-r backend\requirements.txt (line 1))
+  Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting greenlet<4.0.0,>=3.1.1 (from playwright->-r backend\requirements.txt (line 2))
+  Using cached greenlet-3.5.6-cp315-cp315-win_amd64.whl.metadata (3.9 kB)
+Collecting defusedxml<0.8.0,>=0.7.1 (from youtube-transcript-api->-r backend\requirements.txt (line 3))
+  Using cached defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Collecting requests (from youtube-transcript-api->-r backend\requirements.txt (line 3))
+  Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting pyee<15,>=13 (from patchright->-r backend\requirements.txt (line 6))
+  Using cached pyee-14.0.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting typing-extensions (from pyee<15,>=13->patchright->-r backend\requirements.txt (line 6))
+  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting altgraph (from pyinstaller->-r backend\requirements.txt (line 7))
+  Using cached altgraph-0.17.5-py2.py3-none-any.whl.metadata (7.5 kB)
+Collecting pefile>=2022.5.30 (from pyinstaller->-r backend\requirements.txt (line 7))
+  Using cached pefile-2024.8.26-py3-none-any.whl.metadata (1.4 kB)
+Collecting pyinstaller-hooks-contrib>=2026.7 (from pyinstaller->-r backend\requirements.txt (line 7))
+  Using cached pyinstaller_hooks_contrib-2026.10-py3-none-any.whl.metadata (16 kB)
+Collecting pywin32-ctypes>=0.2.1 (from pyinstaller->-r backend\requirements.txt (line 7))
+  Using cached pywin32_ctypes-0.2.3-py3-none-any.whl.metadata (3.9 kB)
+Collecting setuptools>=42.0.0 (from pyinstaller->-r backend\requirements.txt (line 7))
+  Using cached setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting charset_normalizer<4,>=2 (from requests->youtube-transcript-api->-r backend\requirements.txt (line 3))
+  Using cached charset_normalizer-3.5.2-cp315-cp315-win_amd64.whl.metadata (47 kB)
+Collecting idna<4,>=2.5 (from requests->youtube-transcript-api->-r backend\requirements.txt (line 3))
+  Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting urllib3<3,>=1.26 (from requests->youtube-transcript-api->-r backend\requirements.txt (line 3))
+  Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting certifi>=2023.5.7 (from requests->youtube-transcript-api->-r backend\requirements.txt (line 3))
+  Using cached certifi-2026.11.20-py3-none-any.whl.metadata (2.5 kB)
+Using cached customtkinter-6.0.0-py3-none-any.whl (302 kB)
+Using cached playwright-1.65.2-py3-none-win_amd64.whl (42.7 MB)
+Using cached greenlet-3.5.6-cp315-cp315-win_amd64.whl (327 kB)
+Using cached youtube_transcript_api-1.2.5-py3-none-any.whl (485 kB)
+Using cached defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Using cached pillow-13.0.0-cp315-cp315-win_amd64.whl (7.3 MB)
+Using cached psutil-7.2.2-cp37-abi3-win_amd64.whl (137 kB)
+Using cached patchright-1.64.4-py3-none-win_amd64.whl (38.8 MB)
+Using cached pyee-14.0.0-py3-none-any.whl (15 kB)
+Using cached pyinstaller-6.22.3-py3-none-win_amd64.whl (1.5 MB)
+Using cached packaging-26.3-py3-none-any.whl (129 kB)
+Using cached pefile-2024.8.26-py3-none-any.whl (74 kB)
+Using cached pyinstaller_hooks_contrib-2026.10-py3-none-any.whl (463 kB)
+Using cached pywin32_ctypes-0.2.3-py3-none-any.whl (30 kB)
+Using cached setuptools-84.2.1-py3-none-any.whl (876 kB)
+Using cached altgraph-0.17.5-py2.py3-none-any.whl (21 kB)
+Using cached darkdetect-0.8.0-py3-none-any.whl (9.0 kB)
+Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Using cached charset_normalizer-3.5.2-cp315-cp315-win_amd64.whl (210 kB)
+Using cached idna-3.20-py3-none-any.whl (69 kB)
+Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+Using cached certifi-2026.11.20-py3-none-any.whl (127 kB)
+Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Installing collected packages: altgraph, urllib3, typing-extensions, setuptools, pywin32-ctypes, psutil, pillow, pefile, packaging, idna, greenlet, defusedxml, darkdetect, charset_normalizer, certifi, requests, pyinstaller-hooks-contrib, pyee, playwright, customtkinter, youtube-transcript-api, pyinstaller, patchright
+
+Successfully installed altgraph-0.17.5 certifi-2026.11.20 charset_normalizer-3.5.2 customtkinter-6.0.0 darkdetect-0.8.0 defusedxml-0.7.1 greenlet-3.5.6 idna-3.20 packaging-26.3 patchright-1.64.4 pefile-2024.8.26 pillow-13.0.0 playwright-1.65.2 psutil-7.2.2 pyee-14.0.0 pyinstaller-6.22.3 pyinstaller-hooks-contrib-2026.10 pywin32-ctypes-0.2.3 requests-2.34.2 setuptools-84.2.1 typing-extensions-4.16.0 urllib3-2.8.0 youtube-transcript-api-1.2.5
+Target: x86_64-pc-windows-msvc
+226 INFO: PyInstaller: 6.22.3, contrib hooks: 2026.10
+227 INFO: Python: 3.15.2
+258 INFO: Platform: Windows-11-10.0.26300-SP0
+258 INFO: Python environment: C:\WisemanTauri\.venv
+259 INFO: wrote C:\WisemanTauri\wiseman-backend.spec
+263 INFO: Removing temporary files and cleaning cache in C:\Users\manso\AppData\Local\pyinstaller
+2904 INFO: Module search paths (PYTHONPATH):
+['C:\\WisemanTauri',
+ 'C:\\Users\\manso\\AppData\\Local\\Programs\\Python\\Python315\\python315.zip',
+ 'C:\\Users\\manso\\AppData\\Local\\Programs\\Python\\Python315\\DLLs',
+ 'C:\\Users\\manso\\AppData\\Local\\Programs\\Python\\Python315\\Lib',
+ 'C:\\Users\\manso\\AppData\\Local\\Programs\\Python\\Python315',
+ 'C:\\WisemanTauri\\.venv',
+ 'C:\\WisemanTauri\\.venv\\Lib\\site-packages',
+ 'C:\\WisemanTauri\\backend']
+3284 INFO: Appending 'datas' from .spec
+3289 INFO: checking Analysis
+3290 INFO: Building Analysis because Analysis-00.toc is non existent
+3290 INFO: Looking for Python shared library...
+3290 INFO: Using Python shared library: C:\Users\manso\AppData\Local\Programs\Python\Python315\python315.dll
+3290 INFO: Running Analysis Analysis-00.toc
+3290 INFO: Target bytecode optimization level: 0
+3290 INFO: Initializing module dependency graph...
+3291 INFO: Initializing module graph hook caches...
+3317 INFO: Analyzing modules for base_library.zip ...
+4332 INFO: Processing standard module hook 'hook-heapq.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+4671 INFO: Processing standard module hook 'hook-math.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+5185 INFO: Processing standard module hook 'hook-encodings.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8273 INFO: Processing standard module hook 'hook-pickle.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+8826 INFO: Processing standard module hook 'hook-difflib.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10285 INFO: Caching module dependency graph...
+10302 INFO: Analyzing C:\WisemanTauri\backend\bridge.py
+10569 INFO: Processing pre-find-module-path hook 'hook-tkinter.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_find_module_path'
+10571 INFO: TclTkInfo: initializing cached Tcl/Tk info...
+10922 INFO: Processing standard module hook 'hook-_tkinter.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+10978 INFO: Processing standard module hook 'hook-platform.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11025 INFO: Processing standard module hook 'hook-sysconfig.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11037 INFO: Processing standard module hook 'hook-_ctypes.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+11090 INFO: Processing standard module hook 'hook-customtkinter.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+11217 INFO: Processing pre-safe-import-module hook 'hook-packaging.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+11218 INFO: SetuptoolsInfo: initializing cached setuptools info...
+11822 INFO: Processing pre-safe-import-module hook 'hook-typing_extensions.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+12091 INFO: Processing standard module hook 'hook-multiprocessing.util.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+12205 INFO: Processing standard module hook 'hook-xml.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+13423 INFO: Processing standard module hook 'hook-PIL.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+13516 INFO: Processing standard module hook 'hook-PIL.Image.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+13950 INFO: Processing standard module hook 'hook-xml.etree.cElementTree.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+14181 INFO: Processing standard module hook 'hook-PIL.ImageFilter.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+14494 INFO: Processing standard module hook 'hook-xml.dom.domreg.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+15051 INFO: Processing standard module hook 'hook-webbrowser.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+16667 INFO: Processing standard module hook 'hook-playwright.sync_api.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\patchright\\_impl\\__pyinstaller'
+19071 INFO: Processing standard module hook 'hook-urllib3.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+19208 INFO: Processing pre-safe-import-module hook 'hook-backports.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+19208 INFO: Setuptools: 'backports' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.backports'!
+19220 INFO: Processing standard module hook 'hook-setuptools.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+19233 INFO: Processing pre-safe-import-module hook 'hook-distutils.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+19284 INFO: Processing pre-safe-import-module hook 'hook-jaraco.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+19284 INFO: Setuptools: 'jaraco' appears to be a full setuptools-vendored copy - creating alias to 'setuptools._vendor.jaraco'!
+19302 INFO: Processing pre-safe-import-module hook 'hook-more_itertools.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+19302 INFO: Setuptools: 'more_itertools' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.more_itertools'!
+19472 INFO: Processing standard module hook 'hook-_osx_support.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+19793 INFO: Processing standard module hook 'hook-setuptools._vendor.jaraco.text.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+19794 INFO: Processing pre-safe-import-module hook 'hook-importlib_resources.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20515 INFO: Processing pre-safe-import-module hook 'hook-tomli.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+20515 INFO: Setuptools: 'tomli' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.tomli'!
+21331 INFO: Processing pre-safe-import-module hook 'hook-wheel.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\pre_safe_import_module'
+21332 INFO: Setuptools: 'wheel' appears to be a setuptools-vendored copy - creating alias to 'setuptools._vendor.wheel'!
+21903 INFO: Processing standard module hook 'hook-certifi.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+21961 INFO: Processing standard module hook 'hook-charset_normalizer.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+22285 INFO: Processing standard module hook 'hook-psutil.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks'
+22372 INFO: Analyzing hidden import 'playwright.__main__'
+22376 INFO: Analyzing hidden import 'playwright._impl.__pyinstaller'
+22377 INFO: Analyzing hidden import 'playwright._impl._async_base'
+22388 INFO: Analyzing hidden import 'playwright.async_api'
+22395 INFO: Processing standard module hook 'hook-playwright.async_api.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\patchright\\_impl\\__pyinstaller'
+22990 INFO: Analyzing hidden import 'patchright.__main__'
+22992 INFO: Analyzing hidden import 'patchright._impl.__pyinstaller'
+22994 INFO: Analyzing hidden import 'patchright._impl._async_base'
+23000 INFO: Analyzing hidden import 'patchright._impl._path_utils'
+23002 INFO: Analyzing hidden import 'patchright.async_api'
+23421 INFO: Analyzing hidden import 'youtube_transcript_api.__main__'
+23437 INFO: Analyzing hidden import 'youtube_transcript_api.test'
+23437 INFO: Analyzing hidden import 'youtube_transcript_api.test.assets'
+23438 INFO: Analyzing hidden import 'youtube_transcript_api.test.test_api'
+23756 INFO: Analyzing hidden import 'youtube_transcript_api.test.test_cli'
+23783 INFO: Analyzing hidden import 'youtube_transcript_api.test.test_formatters'
+23797 INFO: Analyzing hidden import 'youtube_transcript_api.test.test_proxies'
+23800 INFO: Processing module hooks (post-graph stage)...
+24233 INFO: Processing standard module hook 'hook-PIL.SpiderImagePlugin.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+24415 INFO: Processing standard module hook 'hook-_tkinter.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks'
+24421 INFO: Performing binary vs. data reclassification (181 entries)
+26352 INFO: Looking for ctypes DLLs
+26365 WARNING: Ignoring AppKit.framework/AppKit imported from C:\WisemanTauri\.venv\Lib\site-packages\darkdetect\_mac_detect.py - only basenames are supported with ctypes imports!
+26451 INFO: Analyzing run-time hooks ...
+26454 INFO: Including run-time hook 'pyi_rth_inspect.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+26457 INFO: Including run-time hook 'pyi_rth__tkinter.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+26463 INFO: Including run-time hook 'pyi_rth_pkgutil.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+26465 INFO: Including run-time hook 'pyi_rth_multiprocessing.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+26469 INFO: Including run-time hook 'pyi_rth_setuptools.py' from 'C:\\WisemanTauri\\.venv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks'
+26478 INFO: Creating base_library.zip...
+26492 INFO: Looking for dynamic libraries
+27306 INFO: Extra DLL search directories (AddDllDirectory): []
+27306 INFO: Extra DLL search directories (PATH): []
+28064 INFO: Warnings written to C:\WisemanTauri\build\wiseman-backend\warn-wiseman-backend.txt
+28119 INFO: Graph cross-reference written to C:\WisemanTauri\build\wiseman-backend\xref-wiseman-backend.html
+28160 INFO: checking PYZ
+28161 INFO: Building PYZ because PYZ-00.toc is non existent
+28161 INFO: Building PYZ (ZlibArchive) C:\WisemanTauri\build\wiseman-backend\PYZ-00.pyz
+28647 INFO: Building PYZ (ZlibArchive) C:\WisemanTauri\build\wiseman-backend\PYZ-00.pyz completed successfully.
+28664 INFO: checking PKG
+28665 INFO: Building PKG because PKG-00.toc is non existent
+28665 INFO: Building PKG (CArchive) wiseman-backend.pkg
+34093 INFO: Building PKG (CArchive) wiseman-backend.pkg completed successfully.
+34099 INFO: Bootloader C:\WisemanTauri\.venv\Lib\site-packages\PyInstaller\bootloader\Windows-64bit-intel\run.exe
+34099 INFO: checking EXE
+34099 INFO: Building EXE because EXE-00.toc is non existent
+34099 INFO: Building EXE from EXE-00.toc
+34099 INFO: Copying bootloader EXE to C:\WisemanTauri\dist\wiseman-backend.exe
+34156 INFO: Copying icon to EXE
+34192 INFO: Copying 0 resources to EXE
+34192 INFO: Embedding manifest in EXE
+34223 INFO: Appending PKG archive to EXE
+34330 INFO: Fixing EXE headers
+34762 INFO: Building EXE from EXE-00.toc completed successfully.
+34768 INFO: Build complete! The results are available in: C:\WisemanTauri\dist
+        1 file(s) copied.
+
+added 79 packages, and audited 80 packages in 10s
+
+11 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+npm warn install-scripts   esbuild@0.25.12 (postinstall: node install.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+
+> wiseman-autopilot@0.1.0 build
+> tsc && vite build
+
+[36mvite v6.4.6 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 1936 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.35 kB[22m[1m[22m[2m │ gzip:  0.26 kB[22m
+[2mdist/[22m[35massets/index-DXDy4NYh.css  [39m[1m[2m  5.56 kB[22m[1m[22m[2m │ gzip:  1.93 kB[22m
+[2mdist/[22m[36massets/index-BEWDYN9t.js   [39m[1m[2m274.65 kB[22m[1m[22m[2m │ gzip: 89.09 kB[22m
+[32m✓ built in 1.72s[39m
+
+> wiseman-autopilot@0.1.0 tauri
+> tauri build --bundles nsis
+
+        Info Looking up installed tauri packages to check mismatched versions...
+     Running beforeBuildCommand `npm run build`
+
+> wiseman-autopilot@0.1.0 build
+> tsc && vite build
+
+[36mvite v6.4.6 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 1936 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  0.35 kB[22m[1m[22m[2m │ gzip:  0.26 kB[22m
+[2mdist/[22m[35massets/index-DcoJ8DN2.css  [39m[1m[2m  5.51 kB[22m[1m[22m[2m │ gzip:  1.91 kB[22m
+[2mdist/[22m[36massets/index-DQYvZxBn.js   [39m[1m[2m274.42 kB[22m[1m[22m[2m │ gzip: 89.04 kB[22m
+[32m✓ built in 1.86s[39m
+    Updating crates.io index
+     Locking 453 packages to highest compatible versions
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding toml v0.8.2 (available: v0.8.23)
+      Adding toml_datetime v0.6.3 (available: v0.6.11)
+      Adding toml_edit v0.20.2 (available: v0.20.7)
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.27
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling siphasher v1.0.4
+   Compiling cfg-if v1.0.5
+   Compiling icu_properties_data v2.4.0
+   Compiling fastrand v2.5.0
+   Compiling icu_normalizer_data v2.4.0
+   Compiling windows-link v0.2.1
+   Compiling stable_deref_trait v1.2.1
+   Compiling thiserror v2.0.21
+   Compiling zmij v1.0.23
+   Compiling smallvec v1.16.6
+   Compiling parking_lot_core v0.9.12
+   Compiling serde v1.0.229
+   Compiling typeid v1.0.3
+   Compiling memchr v2.8.3
+   Compiling phf_shared v0.13.1
+   Compiling num-conv v0.2.2
+   Compiling time-core v0.1.9
+   Compiling utf_types v1.0.0
+   Compiling phf_generator v0.13.1
+   Compiling itoa v1.0.19
+   Compiling strsim v0.11.1
+   Compiling writeable v0.6.4
+   Compiling phf_codegen v0.13.1
+   Compiling litemap v0.8.3
+   Compiling erased-serde v0.4.11
+   Compiling ident_case v1.0.1
+   Compiling utf8_iter v1.1.0
+   Compiling windows-sys v0.61.2
+   Compiling anyhow v1.0.104
+   Compiling new_debug_unreachable v1.0.6
+   Compiling scopeguard v1.2.0
+   Compiling precomputed-hash v0.1.1
+   Compiling getrandom v0.4.3
+   Compiling serde_json v1.0.154
+   Compiling lock_api v0.4.14
+   Compiling winnow v1.0.5
+   Compiling dtoa v1.0.11
+   Compiling percent-encoding v2.3.2
+   Compiling toml_writer v1.2.0+spec-1.1.0
+   Compiling autocfg v1.5.1
+   Compiling log v0.4.35
+   Compiling bitflags v2.13.2
+   Compiling dtoa-short v0.3.5
+   Compiling parking_lot v0.12.5
+   Compiling form_urlencoded v1.2.3
+   Compiling toml_parser v1.1.6+spec-1.1.0
+   Compiling tendril v0.5.1
+   Compiling aho-corasick v1.1.5
+   Compiling selectors v0.38.0
+   Compiling string_cache v0.9.0
+   Compiling indexmap v1.9.3
+   Compiling alloc-no-stdlib v3.0.0
+   Compiling regex-syntax v0.8.12
+   Compiling camino v1.2.6
+   Compiling syn v3.0.10
+   Compiling syn v2.0.119
+   Compiling string_cache_codegen v0.6.1
+   Compiling alloc-stdlib v0.3.0
+   Compiling servo_arc v0.4.3
+   Compiling bit-vec v0.8.0
+   Compiling hashbrown v0.12.3
+   Compiling fnv v1.0.7
+   Compiling rustc-hash v2.1.3
+   Compiling hashbrown v0.17.1
+   Compiling schemars v0.8.22
+   Compiling web_atoms v0.2.6
+   Compiling equivalent v1.0.3
+   Compiling libc v0.2.191
+   Compiling deranged v0.5.9
+   Compiling powerfmt v0.2.1
+   Compiling web-time v1.1.0
+   Compiling bit-set v0.8.0
+   Compiling brotli-decompressor v6.3.2
+   Compiling semver v1.0.28
+   Compiling toml_datetime v1.1.3+spec-1.1.0
+   Compiling serde_spanned v1.1.3
+   Compiling uuid v1.29.3
+   Compiling toml v1.2.2+spec-1.1.0
+   Compiling indexmap v2.14.2
+   Compiling quick-xml v0.42.0
+   Compiling base64 v0.23.1
+   Compiling regex-automata v0.4.19
+   Compiling cfb v0.14.0
+   Compiling time v0.3.55
+   Compiling dyn-clone v1.0.20
+   Compiling dunce v1.0.5
+   Compiling bytes v1.12.2
+   Compiling foldhash v0.2.0
+   Compiling tauri-utils v2.10.4
+   Compiling brotli v9.1.3
+   Compiling serde-untagged v0.1.9
+   Compiling windows-result v0.4.1
+   Compiling infer v0.22.0
+   Compiling windows-strings v0.5.1
+   Compiling winapi-util v0.1.11
+   Compiling http v1.5.0
+   Compiling ctor v1.0.14
+   Compiling glob v0.3.4
+   Compiling same-file v1.0.6
+   Compiling serde_derive_internals v0.29.1
+   Compiling walkdir v2.5.1
+   Compiling windows-threading v0.2.1
+   Compiling find-msvc-tools v0.1.15
+   Compiling simd-adler32 v0.3.10
+   Compiling shlex v2.0.1
+   Compiling synstructure v0.14.0
+   Compiling darling_core v0.24.1
+   Compiling time-macros v0.2.32
+   Compiling crc32fast v1.5.5
+   Compiling heck v0.5.0
+   Compiling cc v1.11.3
+   Compiling regex v1.13.2
+   Compiling typenum v1.20.1
+   Compiling adler2 v2.0.1
+   Compiling version_check v0.9.5
+   Compiling crossbeam-utils v0.8.23
+   Compiling raw-window-handle v0.6.2
+   Compiling cookie v0.18.2
+   Compiling hybrid-array v0.4.15
+   Compiling miniz_oxide v0.9.1
+   Compiling phf_macros v0.13.1
+   Compiling derive_more-impl v2.1.1
+   Compiling schemars_derive v0.8.22
+   Compiling windows-implement v0.60.2
+   Compiling windows-interface v0.59.3
+   Compiling vswhom-sys v0.1.3
+   Compiling zerofrom-derive v0.1.8
+   Compiling yoke-derive v0.8.4
+   Compiling zerovec-derive v0.11.7
+   Compiling displaydoc v0.2.7
+   Compiling serde_derive v1.0.229
+   Compiling thiserror-impl v2.0.21
+   Compiling phf v0.13.1
+   Compiling cssparser-macros v0.7.1
+   Compiling derive_more v2.1.1
+   Compiling cssparser v0.37.0
+   Compiling windows-core v0.62.2
+   Compiling darling_macro v0.24.1
+   Compiling zerofrom v0.1.8
+   Compiling markup5ever v0.39.0
+   Compiling yoke v0.8.4
+   Compiling windows-future v0.3.2
+   Compiling html5ever v0.39.0
+   Compiling darling v0.24.1
+   Compiling windows-numerics v0.3.1
+   Compiling zerovec v0.11.9
+   Compiling zerotrie v0.2.5
+   Compiling serde_with_macros v3.25.0
+   Compiling windows-collections v0.3.2
+   Compiling webview2-com-sys v0.39.1
+   Compiling windows v0.62.2
+   Compiling dom_query v0.28.0
+   Compiling tinystr v0.8.5
+   Compiling potential_utf v0.1.6
+   Compiling icu_locale_core v2.4.0
+   Compiling icu_collections v2.4.0
+   Compiling flate2 v1.1.11
+   Compiling serde_with v3.25.0
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.1
+   Compiling webview2-com-macros v0.8.1
+   Compiling cargo-platform v0.1.9
+   Compiling jsonptr v0.7.1
+   Compiling cargo_metadata v0.19.2
+   Compiling plist v1.10.4
+   Compiling dpi v0.1.2
+   Compiling icu_provider v2.4.0
+   Compiling json-patch v4.2.0
+   Compiling icu_normalizer v2.4.0
+   Compiling icu_properties v2.4.0
+   Compiling miniz_oxide v0.8.9
+   Compiling fdeflate v0.3.7
+   Compiling windows-version v0.1.7
+   Compiling rustversion v1.0.23
+   Compiling pin-project-lite v0.2.18
+   Compiling const-oid v0.10.3
+   Compiling digest v0.11.3
+   Compiling idna_adapter v1.2.2
+   Compiling idna v1.1.0
+   Compiling crossbeam-channel v0.5.17
+   Compiling png v0.18.1
+   Compiling url v2.5.9
+   Compiling urlpattern v0.6.0
+   Compiling vswhom v0.1.0
+   Compiling winreg v0.56.0
+   Compiling rustc_version v0.4.1
+   Compiling windows_x86_64_msvc v0.53.1
+   Compiling option-ext v0.2.0
+   Compiling tracing-core v0.1.36
+   Compiling cpufeatures v0.3.1
+   Compiling byteorder v1.5.0
+   Compiling wry v0.57.3
+   Compiling tauri-runtime v2.12.4
+   Compiling tracing v0.1.44
+   Compiling ico v0.6.0
+   Compiling sha2 v0.11.1
+   Compiling dirs-sys v0.5.0
+   Compiling embed-resource v3.0.12
+   Compiling getrandom v0.3.4
+   Compiling unicode-segmentation v1.13.3
+   Compiling tauri-runtime-wry v2.12.5
+   Compiling muda v0.20.0
+   Compiling tauri-winres v0.3.7
+   Compiling dirs v7.0.0
+   Compiling softbuffer v0.4.8
+   Compiling keyboard-types v0.8.3
+   Compiling cargo_toml v1.0.1
+   Compiling serialize-to-javascript-impl v0.1.2
+   Compiling encoding_rs v0.8.44
+   Compiling static_vcruntime v3.0.0
+   Compiling once_cell v1.21.4
+   Compiling windows-targets v0.53.5
+   Compiling serialize-to-javascript v0.1.2
+   Compiling tokio v1.54.1
+   Compiling window-vibrancy v0.8.1
+   Compiling serde_repr v0.1.21
+   Compiling mime v0.3.18
+   Compiling multiversion_no_op v1.0.0
+   Compiling simdutf8 v0.1.5
+   Compiling core_detect v1.0.0
+   Compiling windows-sys v0.60.2
+   Compiling open v5.4.5
+   Compiling shared_child v1.1.2
+   Compiling os_pipe v1.2.3
+   Compiling tauri-plugin v2.7.4
+   Compiling tauri-codegen v2.7.6
+   Compiling tauri-build v2.7.6
+   Compiling tauri v2.12.7
+   Compiling tauri-plugin-shell v2.6.0
+   Compiling tauri-macros v2.7.6
+   Compiling wiseman-autopilot v0.1.0 (C:\WisemanTauri\src-tauri)
+error: failed to run custom build command for `wiseman-autopilot v0.1.0 (C:\WisemanTauri\src-tauri)`
+
+Caused by:
+  process didn't exit successfully: `C:\WisemanTauri\src-tauri\target\release\build\wiseman-autopilot/d92d27e0f9825dd9\out\build_script_build` (exit code: 1)
+  --- stdout
+  cargo:rerun-if-env-changed=TAURI_CONFIG
+  cargo:rustc-check-cfg=cfg(desktop)
+  cargo:rustc-cfg=desktop
+  cargo:rustc-check-cfg=cfg(mobile)
+  cargo:rerun-if-changed=C:\WisemanTauri\src-tauri\tauri.conf.json
+  cargo:rustc-env=TAURI_ANDROID_PACKAGE_NAME_APP_NAME=autopilot
+  cargo:rustc-env=TAURI_ANDROID_PACKAGE_NAME_PREFIX=hk_edu_wiseman
+  cargo:rustc-check-cfg=cfg(dev)
+  cargo:PERMISSION_FILES_PATH=C:\WisemanTauri\src-tauri\target\release\build\wiseman-autopilot/e70619eb5f3a8f75\out\app-manifest\__app__-permission-files
+  cargo:rerun-if-changed=C:\WisemanTauri\src-tauri\capabilities
+  cargo:rerun-if-env-changed=REMOVE_UNUSED_COMMANDS
+  cargo:rustc-env=TAURI_ENV_TARGET_TRIPLE=x86_64-pc-windows-msvc
+  cargo:rerun-if-changed=binaries\wiseman-backend-x86_64-pc-windows-msvc.exe
+  package.metadata does not exist
+  `C:\WisemanTauri\src-tauri\icons/icon.ico` not found; required for generating a Windows Resource file during tauri-build
+warning: build failed, waiting for other jobs to finish...
+failed to build app: failed to build app
+       Error failed to build app: failed to build app

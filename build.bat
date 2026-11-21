@@ -1,57 +1,84 @@
 @echo off
-setlocal enabledelayedexpansion
+setlocal EnableExtensions EnableDelayedExpansion
 cd /d "%~dp0"
+set "LOG=%CD%\build.log"
+>"%LOG%" echo Wiseman Autopilot build started %DATE% %TIME%
 
-echo [1/4] Installing required Python packages...
-if exist ".venv\Scripts\python.exe" (
-    set "PY_BIN=.venv\Scripts\python.exe"
-) else (
-    set "PY_BIN=python"
+echo [0/6] Checking Windows build tools...
+where npm >>"%LOG%" 2>&1 || goto :missing_node
+where rustc >>"%LOG%" 2>&1 || goto :missing_rust
+where cargo >>"%LOG%" 2>&1 || goto :missing_rust
+where python >>"%LOG%" 2>&1 || goto :missing_python
+
+echo [1/6] Creating Python environment...
+if not exist ".venv\Scripts\python.exe" python -m venv .venv >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+call ".venv\Scripts\activate.bat"
+python -m pip install --upgrade pip >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+pip install -r backend\requirements.txt >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [2/6] Detecting Rust target...
+set "TARGET="
+for /f %%T in ('rustc --print host-tuple 2^>nul') do set "TARGET=%%T"
+if not defined TARGET for /f "tokens=2" %%T in ('rustc -Vv ^| findstr /b "host:"') do set "TARGET=%%T"
+if not defined TARGET (
+  echo [ERROR] Could not determine the Rust host target.>>"%LOG%"
+  goto :fail
 )
+echo Target: %TARGET%>>"%LOG%"
 
-"%PY_BIN%" -m pip install --upgrade customtkinter playwright youtube-transcript-api pyinstaller pillow
-
-echo [2/4] Checking application icon (logo.ico)...
-set "ICON_ARGS="
-if not exist "logo.ico" (
-    if exist "logo.png" (
-        echo   + Converting logo.png to logo.ico...
-        "%PY_BIN%" -c "from PIL import Image; Image.open('logo.png').save('logo.ico', sizes=[(16,16),(32,32),(48,48),(256,256)])"
-    )
+echo [3/6] Building the Python sidecar...
+python -m PyInstaller --noconfirm --clean --onefile --windowed --name wiseman-backend --paths backend --collect-all customtkinter --collect-submodules playwright --collect-submodules patchright --collect-submodules youtube_transcript_api backend\bridge.py >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+if not exist "dist\wiseman-backend.exe" (
+  echo [ERROR] PyInstaller did not create dist\wiseman-backend.exe.>>"%LOG%"
+  goto :fail
 )
-if exist "logo.ico" (
-    echo   + Using custom icon: logo.ico
-    set "ICON_ARGS=--icon "logo.ico" --add-data "logo.ico;.""
-) else (
-    echo   ! logo.ico not found; building with default icon.
+if not exist "src-tauri\binaries" mkdir "src-tauri\binaries"
+copy /y "dist\wiseman-backend.exe" "src-tauri\binaries\wiseman-backend-%TARGET%.exe" >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [4/6] Installing React dependencies...
+call npm install >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [5/6] Verifying the React production build...
+call npm run build >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [6/6] Building the Tauri NSIS installer...
+call npm run tauri build -- --bundles nsis >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+set "OUT=src-tauri\target\release\bundle\nsis"
+if not exist "%OUT%" (
+  echo [ERROR] Tauri returned success but %OUT% does not exist.>>"%LOG%"
+  goto :fail
 )
-
-echo [3/4] Collecting all codebase versions (run_*.py)...
-set "SCRIPT_ARGS="
-for %%F in (run_*.py) do (
-    echo   + Bundling %%F
-    set "SCRIPT_ARGS=!SCRIPT_ARGS! --add-data "%%F;scripts""
-)
-
-echo [4/4] Building standalone WisemanAgent.exe...
-"%PY_BIN%" -m PyInstaller --noconfirm --clean --onefile --console ^
-  --name "WisemanAgent" ^
-  !ICON_ARGS! ^
-  --collect-all customtkinter ^
-  --collect-submodules playwright ^
-  --collect-submodules youtube_transcript_api ^
-  !SCRIPT_ARGS! ^
-  run_ultrafast.py
-
-if errorlevel 1 (
-    echo.
-    echo [ERROR] Build failed! Check the message above.
-    pause
-    exit /b 1
-)
-
 echo.
-echo Done! Your standalone executable is ready at:
-echo   dist\WisemanAgent.exe
-echo.
+echo BUILD SUCCEEDED
+echo Installer folder: %CD%\%OUT%
+echo Full log: %LOG%
+explorer "%OUT%"
 pause
+exit /b 0
+
+:missing_node
+echo [ERROR] Node.js/npm is missing. Install Node.js LTS, then reopen Command Prompt.
+goto :fail
+:missing_rust
+echo [ERROR] Rust MSVC is missing. Install rustup, run rustup default stable-msvc, then reopen Command Prompt.
+goto :fail
+:missing_python
+echo [ERROR] Python is missing. Install Python 3.11 or 3.12 and enable Add Python to PATH.
+goto :fail
+:fail
+echo.
+echo BUILD FAILED. No installer was produced.
+echo Read this log: %LOG%
+echo.
+powershell -NoProfile -Command "if(Test-Path '%LOG%'){Get-Content '%LOG%' -Tail 40}"
+pause
+exit /b 1

@@ -1,0 +1,99 @@
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Activity, Bot, Box, ChevronLeft, ChevronRight, CircleStop, Cpu, Home, MemoryStick, Moon, Play, Settings, Sun } from 'lucide-react';
+import { invoke } from '@tauri-apps/api/core';
+import { listen } from '@tauri-apps/api/event';
+
+type Status={running:boolean;engineOnline:boolean;modelReady:boolean;model:string;today:number;questions:number;correct:number;incorrect:number;context:number;contextMax:number;adaptive:boolean};
+type Config={thinking:boolean;adaptive:boolean;errorRate:number;vramProfile:string;theme:'light'|'dark'};
+const defaultStatus:Status={running:false,engineOnline:false,modelReady:false,model:'gemma4:e4b',today:0,questions:0,correct:0,incorrect:0,context:0,contextMax:8192,adaptive:true};
+const defaultConfig:Config={thinking:false,adaptive:true,errorRate:15,vramProfile:'Balanced · recommended',theme:'light'};
+
+export function App(){
+ const [page,setPage]=useState<'home'|'activity'|'settings'>('home'); const [side,setSide]=useState(false); const [status,setStatus]=useState(defaultStatus); const [config,setConfig]=useState(defaultConfig); const [logs,setLogs]=useState<string[]>([]); const [setup,setSetup]=useState(false);
+ useEffect(()=>{ invoke<any>('backend_status').then(r=>r&&setStatus({...defaultStatus,...r})).catch(()=>{}); invoke<any>('load_preferences').then(r=>{if(r){setConfig({...defaultConfig,...r});setSetup(!r.firstLaunchComplete)}}).catch(()=>setSetup(true)); const un1=listen<string>('backend-log',e=>setLogs(v=>[...v.slice(-499),e.payload])); const un2=listen<Status>('backend-status',e=>setStatus(e.payload)); return()=>{un1.then(f=>f());un2.then(f=>f())}},[]);
+ useEffect(()=>{document.documentElement.dataset.theme=config.theme},[config.theme]);
+ const nav=useMemo(()=>[{id:'home',label:'Home',icon:Home},{id:'activity',label:'Live Activity',icon:Activity},{id:'settings',label:'Settings',icon:Settings}],[]);
+ const save=(next:Config)=>{setConfig(next);invoke('save_preferences',{preferences:next}).catch(()=>{})};
+ const toggle=()=>invoke(status.running?'stop_agent':'start_agent',{config}).catch(e=>setLogs(v=>[...v,String(e)]));
+ return <div className="app-shell">
+  <aside className={side?'sidebar expanded':'sidebar'}>
+   <img className="logo" src="/logo.png" alt="Application logo"/>
+   <button className="rail-button expand" onClick={()=>setSide(!side)}>{side?<ChevronLeft/>:<ChevronRight/>}<span>{side?'Collapse':'Expand'}</span></button>
+   <nav>{nav.map(n=><button key={n.id} title={n.label} className={'rail-button '+(page===n.id?'active':'')} onClick={()=>setPage(n.id as any)}><n.icon/><span>{n.label}</span></button>)}</nav>
+   <div className="sidebar-bottom"><button className="rail-button" title="Light / dark mode" onClick={()=>save({...config,theme:config.theme==='light'?'dark':'light'})}>{config.theme==='light'?<Sun/>:<Moon/>}<span>{config.theme==='light'?'Light':'Dark'}</span></button><div className="online-dot"/></div>
+  </aside>
+  <main className="workspace">
+   <header><div><small>LOCAL AI CONTROL</small><h1>Wiseman Autopilot</h1></div><div className="header-actions"><span className="badge">{status.engineOnline?'OLLAMA ONLINE':'OLLAMA OFFLINE'}</span><button className={status.running?'danger primary':'primary'} onClick={toggle}>{status.running?<><CircleStop/>Stop</>:<><Play/>Launch Session</>}</button></div></header>
+   <AnimatePresence mode="wait">
+    <motion.section key={page} className="page" initial={{opacity:0,x:28}} animate={{opacity:1,x:0}} exit={{opacity:0,x:-24}} transition={{duration:.22,ease:[.22,1,.36,1]}}>
+     {page==='home'&&<HomePage status={status} config={config} save={save} models={models} onModel={async model=>{await invoke('set_model',{model});setStatus(current=>({...current,model,modelReady:false}));setModels(await invoke<string[]>('list_models'));}}/>} 
+     {page==='activity'&&<ActivityPage logs={logs} status={status}/>}
+     {page==='settings'&&<SettingsPage config={config} save={save}/>} 
+    </motion.section>
+   </AnimatePresence>
+  </main>
+  <AnimatePresence>{setup&&<Setup config={config} finish={(c)=>{save(c);invoke('complete_first_launch',{preferences:c});setSetup(false)}}/>}</AnimatePresence>
+ </div>
+}
+function HomePage({status,config,save,models,onModel}:{status:Status;config:Config;save:(c:Config)=>void;models:string[];onModel:(m:string)=>void}){
+  return <>
+    <section className="hero">
+      <div>
+        <span className="eyebrow">LOCAL AI SESSION</span>
+        <h2>Ready when you are.</h2>
+        <p>The automation engine stays in Python. This interface controls it through a packaged Tauri sidecar.</p>
+      </div>
+      <div className="today"><b>{status.today}</b><span>completed today</span></div>
+    </section>
+    <div className="grid two">
+      <Card icon={<Bot/>} title="AI Runtime">
+        <label>Active model</label>
+        <select className="model-selector" value={status.model} onChange={e=>onModel(e.target.value)}>
+          {Array.from(new Set([status.model,...models])).map(m=><option key={m} value={m}>{m}{m==='gemma4:e4b'?' (preferred)':''}</option>)}
+        </select>
+        <div className="runtime">
+          <div><span>Engine</span><b className={status.engineOnline?'good':'bad'}>{status.engineOnline?'Online':'Offline'}</b></div>
+          <div><span>Model</span><b className={status.modelReady?'good':'warn'}>{status.modelReady?'Ready':'Not ready'}</b></div>
+        </div>
+      </Card>
+      <Card icon={<MemoryStick/>} title="Session Profile">
+        <label>GPU memory mode</label>
+        <select value={config.vramProfile} onChange={e=>save({...config,vramProfile:e.target.value})}>
+          <option>Eco · lowest VRAM</option>
+          <option>Balanced · recommended</option>
+          <option>Performance · 16K</option>
+          <option>Overkill · 32K</option>
+          <option>Overkill · 64K</option>
+        </select>
+        <Switch label="AI Thinking Mode" value={config.thinking} onChange={v=>save({...config,thinking:v})}/>
+        <Switch label="Adaptive Context" value={config.adaptive} onChange={v=>save({...config,adaptive:v})}/>
+        <label>Intentional error rate <b>{config.errorRate}%</b></label>
+        <input type="range" min="0" max="100" value={config.errorRate} onChange={e=>save({...config,errorRate:+e.target.value})}/>
+      </Card>
+    </div>
+  </>
+}
+
+function ActivityPage({logs,status}:{logs:string[];status:Status}){const end=useRef<HTMLDivElement>(null);useEffect(()=>end.current?.scrollIntoView({behavior:'smooth',block:'end'}),[logs]);return <Card icon={<Activity/>} title="Live Activity" wide><div className="metrics"><span>Questions <b>{status.questions}</b></span><span>Correct <b>{status.correct}</b></span><span>Incorrect <b>{status.incorrect}</b></span><span title={status.adaptive?'Adaptive context uses the smallest sufficient size, up to the selected profile ceiling.':'Adaptive context is off, so the selected profile size is requested directly.'}>Context used <b>{Math.round(status.context/1024)}K / {Math.round(status.contextMax/1024)}K max</b></span></div><pre className="console">{logs.length?logs.join('\n'):'Backend events will appear here.'}<div ref={end}/></pre></Card>}
+function SettingsPage({config,save}:{config:Config;save:(c:Config)=>void}){
+  return <div className="grid two">
+    <Card icon={<Settings/>} title="Appearance">
+      <Switch label="Dark mode" value={config.theme==='dark'} onChange={v=>save({...config,theme:v?'dark':'light'})}/>
+    </Card>
+    <Card icon={<Cpu/>} title="Agent defaults">
+      <div className="setting-help" title="Lets supported Ollama models perform a private reasoning pass before returning the structured answer. This is slower, but can improve inference, author-purpose, and multi-step questions.">
+        <span className="info-chip">i</span>
+        <Switch label="AI Thinking Mode" value={config.thinking} onChange={v=>save({...config,thinking:v})}/>
+      </div>
+      <div className="setting-help" title="Automatically selects the smallest useful context for each request, capped by the selected GPU memory profile. A 32K profile may report 4K when only 4K is needed.">
+        <span className="info-chip">i</span>
+        <Switch label="Adaptive Context" value={config.adaptive} onChange={v=>save({...config,adaptive:v})}/>
+      </div>
+    </Card>
+  </div>
+}
+
+function Card({icon,title,children,wide=false}:{icon:any;title:string;children:any;wide?:boolean}){return <article className={'card '+(wide?'wide':'')}><div className="card-title"><i>{icon}</i><h3>{title}</h3></div>{children}</article>}
+function Switch({label,value,onChange}:{label:string;value:boolean;onChange:(v:boolean)=>void}){return <label className="switch-row"><span>{label}</span><button className={'switch '+(value?'on':'')} onClick={()=>onChange(!value)}><motion.i layout transition={{type:'spring',stiffness:500,damping:34}}/></button></label>}
+function Setup({config,finish}:{config:Config;finish:(c:Config)=>void}){const [step,setStep]=useState(1);const [local,setLocal]=useState(config);const [msg,setMsg]=useState('This one-time setup checks Ollama and prepares your selected AI model.');const next=async()=>{if(step===1){setStep(2);setMsg('Checking Ollama and installed models…');try{await invoke('prepare_environment');setStep(3);setMsg('Runtime and model are ready.')}catch(e){setMsg(String(e))}}else if(step===3)finish(local)};return <motion.div className="setup-backdrop" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}}><motion.div className="setup-panel" initial={{scale:.96,y:16}} animate={{scale:1,y:0}}><span className="eyebrow">FIRST LAUNCH SETUP · {step}/3</span><h2>{step===1?'Welcome to Wiseman Autopilot':step===2?'Preparing local AI':'Choose your defaults'}</h2>{step<3?<><p>{msg}</p><div className="progress"><motion.i animate={{width:step===1?'12%':'76%'}}/></div></>:<div className="setup-form"><Switch label="AI Thinking Mode" value={local.thinking} onChange={v=>setLocal({...local,thinking:v})}/><Switch label="Adaptive Context" value={local.adaptive} onChange={v=>setLocal({...local,adaptive:v})}/><label>Intentional error rate: {local.errorRate}%</label><input type="range" min="0" max="100" value={local.errorRate} onChange={e=>setLocal({...local,errorRate:+e.target.value})}/></div>}<button className="primary setup-next" disabled={step===2} onClick={next}>{step===1?'Begin setup':step===3?'Finish':'Working…'}</button></motion.div></motion.div>}

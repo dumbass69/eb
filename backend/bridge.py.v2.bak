@@ -1,0 +1,71 @@
+"""JSON-lines bridge between Tauri and the existing Wiseman Python engine."""
+import contextlib, json, queue, sys, threading, traceback
+from pathlib import Path
+
+BASE = Path(__file__).resolve().parent
+sys.path.insert(0, str(BASE))
+import run_ultrafast as engine
+
+out_lock = threading.Lock(); worker = None; stop_event = threading.Event()
+
+def emit(kind, payload=None):
+    with out_lock:
+        sys.__stdout__.write(json.dumps({"type":kind,"payload":payload}, ensure_ascii=False)+"\n"); sys.__stdout__.flush()
+class Stream:
+    def __init__(self, kind="log"): self.buf=""; self.kind=kind
+    def write(self, text):
+        self.buf += str(text)
+        while "\n" in self.buf:
+            line,self.buf=self.buf.split("\n",1)
+            if line.strip(): emit(self.kind,line)
+    def flush(self):
+        if self.buf.strip(): emit(self.kind,self.buf.strip()); self.buf=""
+sys.stdout=Stream(); sys.stderr=Stream("log")
+
+def memory(): return engine.load_memory()
+def status():
+    m=memory(); tele=engine.TELEMETRY.snapshot(); model=m.get("selected_model",engine.PREFERRED_MODEL)
+    return {"running":bool(worker and worker.is_alive()),"engineOnline":engine.is_ollama_running(),"modelReady":engine.is_model_installed(engine.get_installed_models(),model),"model":model,"today":engine.count_lessons_today(m),"questions":tele["questions"],"correct":tele["correct"],"incorrect":tele["incorrect"],"context":tele["context"]}
+def save_preferences(p):
+    m=memory(); m["thinking_mode"]=bool(p.get("thinking",False)); m["adaptive_context"]=bool(p.get("adaptive",True)); m["vram_profile"]=p.get("vramProfile",engine.DEFAULT_VRAM_PROFILE); m["theme_mode"]=p.get("theme","light"); m.setdefault("student_profile",{})["incorrect_rate_pct"]=int(p.get("errorRate",15)); engine.save_memory(m)
+def prepare():
+    exe,_=engine.find_ollama_executable()
+    if not exe and not engine.is_ollama_running(): engine.download_and_install_ollama_from_github(lambda s,c,t: emit("progress",{"status":s,"completed":c,"total":t}),stop_event)
+    engine.ensure_ollama_server(stop_event); m=memory(); model=m.get("selected_model",engine.PREFERRED_MODEL); installed=engine.get_installed_models()
+    if not installed: engine.pull_ollama_model_stream(model,lambda s,c,t:emit("progress",{"status":s,"completed":c,"total":t}),stop_event)
+    emit("status",status())
+def start_agent(config):
+    global worker
+    if worker and worker.is_alive(): return
+    save_preferences(config); stop_event.clear(); m=memory(); model=m.get("selected_model",engine.PREFERRED_MODEL)
+    def run():
+        try:
+            engine.run_agent_session(model,stop_event,lambda _n:emit("status",status()),lambda s,c,t:emit("progress",{"status":s,"completed":c,"total":t}),lambda:int(config.get("errorRate",15)),config.get("vramProfile",engine.DEFAULT_VRAM_PROFILE),bool(config.get("thinking",False)))
+        except BaseException as exc: emit("log",f"[Backend Error] {exc}\n{traceback.format_exc()}")
+        finally: emit("status",status())
+    worker=threading.Thread(target=run,daemon=True); worker.start(); emit("status",status())
+def stop():
+    stop_event.set();
+    try: engine.release_all_ollama_models()
+    except Exception: pass
+    emit("status",status())
+
+def handle(req):
+    cmd=req.get("cmd"); data=req.get("data") or {}
+    if cmd=="status": return status()
+    if cmd=="load_preferences":
+        m=memory(); return {"thinking":m.get("thinking_mode",False),"adaptive":m.get("adaptive_context",True),"errorRate":m.get("student_profile",{}).get("incorrect_rate_pct",15),"vramProfile":m.get("vram_profile",engine.DEFAULT_VRAM_PROFILE),"theme":m.get("theme_mode","light"),"firstLaunchComplete":m.get("first_launch_complete",False)}
+    if cmd=="save_preferences": save_preferences(data); return True
+    if cmd=="complete_first_launch": save_preferences(data); m=memory(); m["first_launch_complete"]=True; engine.save_memory(m); return True
+    if cmd=="prepare_environment": prepare(); return status()
+    if cmd=="start_agent": start_agent(data); return True
+    if cmd=="stop_agent": stop(); return True
+    if cmd=="shutdown": stop(); raise SystemExit
+    raise ValueError(f"Unknown command: {cmd}")
+
+emit("ready",status())
+for line in sys.stdin:
+    try:
+        req=json.loads(line); emit("response",{"id":req.get("id"),"ok":True,"result":handle(req)})
+    except SystemExit: break
+    except Exception as exc: emit("response",{"id":req.get("id") if 'req' in locals() else None,"ok":False,"error":str(exc)})

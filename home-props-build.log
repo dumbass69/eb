@@ -1,0 +1,8 @@
+Home props repair started Sat 11/21/2026 22:01:02.59
+HomePage now receives models and onModel.
+
+> wiseman-autopilot@0.1.0 build
+> tsc && vite build
+
+src/App.tsx(30,84): error TS2304: Cannot find name 'models'.
+src/App.tsx(30,207): error TS2304: Cannot find name 'setModels'.

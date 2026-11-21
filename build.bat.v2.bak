@@ -1,0 +1,84 @@
+@echo off
+setlocal EnableExtensions EnableDelayedExpansion
+cd /d "%~dp0"
+set "LOG=%CD%\build.log"
+>"%LOG%" echo Wiseman Autopilot build started %DATE% %TIME%
+
+echo [0/6] Checking Windows build tools...
+where npm >>"%LOG%" 2>&1 || goto :missing_node
+where rustc >>"%LOG%" 2>&1 || goto :missing_rust
+where cargo >>"%LOG%" 2>&1 || goto :missing_rust
+where python >>"%LOG%" 2>&1 || goto :missing_python
+
+echo [1/6] Creating Python environment...
+if not exist ".venv\Scripts\python.exe" python -m venv .venv >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+call ".venv\Scripts\activate.bat"
+python -m pip install --upgrade pip >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+pip install -r backend\requirements.txt >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [2/6] Detecting Rust target...
+set "TARGET="
+for /f %%T in ('rustc --print host-tuple 2^>nul') do set "TARGET=%%T"
+if not defined TARGET for /f "tokens=2" %%T in ('rustc -Vv ^| findstr /b "host:"') do set "TARGET=%%T"
+if not defined TARGET (
+  echo [ERROR] Could not determine the Rust host target.>>"%LOG%"
+  goto :fail
+)
+echo Target: %TARGET%>>"%LOG%"
+
+echo [3/6] Building the Python sidecar...
+python -m PyInstaller --noconfirm --clean --onefile --console --name wiseman-backend --paths backend --collect-all customtkinter --collect-submodules playwright --collect-submodules patchright --collect-submodules youtube_transcript_api backend\bridge.py >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+if not exist "dist\wiseman-backend.exe" (
+  echo [ERROR] PyInstaller did not create dist\wiseman-backend.exe.>>"%LOG%"
+  goto :fail
+)
+if not exist "src-tauri\binaries" mkdir "src-tauri\binaries"
+copy /y "dist\wiseman-backend.exe" "src-tauri\binaries\wiseman-backend-%TARGET%.exe" >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [4/6] Installing React dependencies...
+call npm install >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [5/6] Verifying the React production build...
+call npm run build >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+echo [6/6] Building the Tauri NSIS installer...
+call npm run tauri build -- --bundles nsis >>"%LOG%" 2>&1
+if errorlevel 1 goto :fail
+
+set "OUT=src-tauri\target\release\bundle\nsis"
+if not exist "%OUT%" (
+  echo [ERROR] Tauri returned success but %OUT% does not exist.>>"%LOG%"
+  goto :fail
+)
+echo.
+echo BUILD SUCCEEDED
+echo Installer folder: %CD%\%OUT%
+echo Full log: %LOG%
+explorer "%OUT%"
+pause
+exit /b 0
+
+:missing_node
+echo [ERROR] Node.js/npm is missing. Install Node.js LTS, then reopen Command Prompt.
+goto :fail
+:missing_rust
+echo [ERROR] Rust MSVC is missing. Install rustup, run rustup default stable-msvc, then reopen Command Prompt.
+goto :fail
+:missing_python
+echo [ERROR] Python is missing. Install Python 3.11 or 3.12 and enable Add Python to PATH.
+goto :fail
+:fail
+echo.
+echo BUILD FAILED. No installer was produced.
+echo Read this log: %LOG%
+echo.
+powershell -NoProfile -Command "if(Test-Path '%LOG%'){Get-Content '%LOG%' -Tail 40}"
+pause
+exit /b 1
