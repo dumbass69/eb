@@ -1,4 +1,4 @@
-# Wiseman English Builder AI Agent
+# #FUCK EB
 
 A Windows desktop automation tool for Wiseman English Builder. It combines Chrome automation, local Ollama models, visual passage reading, persistent progress memory, and a CustomTkinter control panel.
 
