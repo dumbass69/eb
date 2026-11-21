@@ -1,0 +1,118 @@
+{
+  "learned_ui_rules": [
+    "On English Builder Dashboard, 'Lesson Library' in the left sidebar opens the Themes grid.",
+    "Ignore contact/footer boxes like 'Service Hours' or 'Need help? Talk to us.' — they are not themes.",
+    "Pick uncompleted Themes from bottom to top (largest pos.y first), then pick an uncompleted Module inside.",
+    "When 'LEVEL OF DIFFICULTY' is open, NEVER click 'Close Popup (X)'. First click 'Challenging' (never 'Easy'), then click 'Start Lessons'.",
+    "Multiple-choice options (<label> or radio buttons) MUST use action 'click' (only use 'select' on actual <select> dropdowns).",
+    "NEVER click 'Submit' until you have selected/filled an answer for the current question. After 'Submit' becomes disabled, NEVER click answer options again — click 'Next Question'.",
+    "On 'Student Voice' at the end of a lesson: pick an option + click 'Submit', then click 'Results'. On the 'Your Score:' screen, finish the lesson so 'X' closes back to the submenus.",
+    "Inside a module, complete all 4 skill cards (Listening, Reading, Writing, Speaking) — skip any card marked 'Completed'. Only click 'Back to Modules' or 'Lesson Library' after all 4 skills in the module are completed.",
+    "When a sentence has multiple text boxes ([BLANK #1], [BLANK #2], etc.), put ONLY ONE WORD per box — split multi-word answers across consecutive boxes in order before clicking 'Submit'.",
+    "NEVER click 'Submit' until all required answers/blanks for the current question are filled. After 'Submit' becomes disabled, NEVER click answer options again — click 'Next Question'.",
+    "On the Wiseman homepage (wiseman.com.hk/en/), click 'Login' (or 'Student Login' / 'English Builder') in the header/menu to enter the learning portal.",
+    "Once inside the Wiseman portal, open 'English Builder' if not already inside it, then click 'Lesson Library' in the left sidebar to open the Themes grid.",
+    "Ignore contact/footer boxes like 'Service Hours' or 'Need help? Talk to us.' — they are not themes or modules.",
+    "Pick uncompleted Themes/Modules from bottom to top (largest pos.y first), skipping ANY card whose state contains 'completed' or whose title is in ALREADY COMPLETED ITEMS.",
+    "Inside a module, complete all 4 skill cards (Listening, Reading, Writing, Speaking) — skip any card marked 'Completed'. Only click 'Back to Modules' after all 4 skills in the module are completed.",
+    "NEVER click anything inside 'Extended Section' (including 'Extended Listening', 'Extended Reading', 'Extended Speaking', 'Extended Writing', or its 'Start Lesson' button).",
+    "Inside a module, complete only the 4 main skill cards (Listening, Reading, Writing, Speaking) — skip any card marked 'Completed' and NEVER click 'Extended Section'. Only click 'Back to Modules' after all 4 main skills are completed."
+  ],
+  "completed_items": [
+    "Reaching for the Stars",
+    "Speaking :: How Artificial Intelligence is Shaping China's Future",
+    "China: A Global Technological Powerhouse :: Speaking :: How Artificial Intelligence is Shaping China's Future",
+    "Listening :: How Artificial Intelligence is Shaping China's Future",
+    "Technology :: China: A Global Technological Powerhouse :: Listening :: How Artificial Intelligence is Shaping China's Future",
+    "Listening :: Art Attack! Activists or Vandals?",
+    "Young Changemakers in Action",
+    "Listening :: The Science of Healthy Eating",
+    "The Individual and Society :: Food for Thought :: Listening :: The Science of Healthy Eating",
+    "Writing :: The Science of Healthy Eating",
+    "The Individual and Society :: Food for Thought :: Writing :: The Science of Healthy Eating",
+    "Speaking :: The Science of Healthy Eating",
+    "The Individual and Society :: Food for Thought :: Speaking :: The Science of Healthy Eating",
+    "Food for Thought",
+    "The Individual and Society :: Food for Thought",
+    "The Individual and Society :: Young Changemakers in Action",
+    "The Individual and Society",
+    "Listening :: When Adventure Turns Tragic: The Real Cost of Extreme Sports",
+    "A Million Miles for One Moment :: Listening :: When Adventure Turns Tragic: The Real Cost of Extreme Sports"
+  ],
+  "lesson_log": [
+    {
+      "date": "2026-11-18T00:57:37",
+      "lesson": "Reaching for the Stars",
+      "duration_sec": 0.0
+    },
+    {
+      "date": "2026-11-18T01:05:18",
+      "lesson": "Reaching for the Stars",
+      "duration_sec": 0.0
+    },
+    {
+      "date": "2026-11-18T01:11:38",
+      "lesson": "Reaching for the Stars",
+      "duration_sec": 0.0
+    },
+    {
+      "date": "2026-11-18T01:14:13",
+      "lesson": "Reaching for the Stars",
+      "duration_sec": 0.0
+    },
+    {
+      "date": "2026-11-18T01:31:40",
+      "lesson": "China: A Global Technological Powerhouse :: Speaking :: How Artificial Intelligence is Shaping China's Future",
+      "duration_sec": 129.9
+    },
+    {
+      "date": "2026-11-18T01:32:49",
+      "lesson": "China: A Global Technological Powerhouse :: Speaking :: How Artificial Intelligence is Shaping China's Future",
+      "duration_sec": 27.6
+    },
+    {
+      "date": "2026-11-18T01:33:22",
+      "lesson": "China: A Global Technological Powerhouse :: Speaking :: How Artificial Intelligence is Shaping China's Future",
+      "duration_sec": 26.0
+    },
+    {
+      "date": "2026-11-18T01:34:33",
+      "lesson": "China: A Global Technological Powerhouse :: Speaking :: How Artificial Intelligence is Shaping China's Future",
+      "duration_sec": 26.2
+    },
+    {
+      "date": "2026-11-18T01:56:36",
+      "lesson": "Listening :: How Artificial Intelligence is Shaping China's Future",
+      "duration_sec": 381.5
+    },
+    {
+      "date": "2026-11-18T02:18:58",
+      "lesson": "Listening :: Art Attack! Activists or Vandals?",
+      "duration_sec": 137.1
+    },
+    {
+      "date": "2026-11-18T02:22:02",
+      "lesson": "The Individual and Society :: Food for Thought :: Listening :: The Science of Healthy Eating",
+      "duration_sec": 158.8
+    },
+    {
+      "date": "2026-11-18T02:22:32",
+      "lesson": "The Individual and Society :: Food for Thought :: Writing :: The Science of Healthy Eating",
+      "duration_sec": 23.7
+    },
+    {
+      "date": "2026-11-18T02:24:42",
+      "lesson": "The Individual and Society :: Food for Thought :: Speaking :: The Science of Healthy Eating",
+      "duration_sec": 125.1
+    },
+    {
+      "date": "2026-11-18T19:15:50",
+      "lesson": "A Million Miles for One Moment :: Listening :: When Adventure Turns Tragic: The Real Cost of Extreme Sports",
+      "duration_sec": 174.5
+    }
+  ],
+  "student_profile": {
+    "typing_wpm_mean": 54,
+    "reading_wpm_mean": 286
+  }
+}
