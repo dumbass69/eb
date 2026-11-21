@@ -1,6 +1,6 @@
 # #FUCK EB
 
-A Windows desktop automation tool for Wiseman English Builder. It combines Chrome automation, local Ollama models, visual passage reading, persistent progress memory, and a CustomTkinter control panel.
+A Windows desktop automation tool for Wiseman English Builder. It combines Chrome automation, local Ollama models, visual passage reading, persistent progress memory, and a tauri2 based control panel.
 
 
 
